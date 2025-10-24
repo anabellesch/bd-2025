@@ -1,0 +1,40 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e7ecf3;
+  padding: 10px 30px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 55px;
+  margin-right: 10px;
+}
+
+.navbar-title h2 {
+  margin: 0;
+  font-weight: bold;
+  color: #003366;
+}
+
+.navbar-title p {
+  margin: 0;
+  font-size: 13px;
+  color: #003366;
+}
+
+.navbar-links a {
+  margin: 0 10px;
+  color: #003366;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.navbar-links a:hover {
+  text-decoration: underline;
+}

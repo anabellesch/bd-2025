@@ -1,0 +1,126 @@
+/* === Reset básico === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: #eef1f5;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* === Contenedor principal === */
+.home-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* === Lateral izquierdo === */
+.sidebar {
+  background-color: #a3b5c7;
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar img {
+  width: 150px;
+  height: 150px;
+}
+
+/* === Contenido principal === */
+.content {
+  flex: 1;
+  background-color: #f2f5fa;
+  padding: 40px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* === Encabezado === */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header img.logo {
+  height: 50px;
+}
+
+.header-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.header-nav a {
+  text-decoration: none;
+  color: #003366;
+  font-weight: 500;
+}
+
+/* === Texto principal === */
+.main-text {
+  margin-top: 40px;
+}
+
+.main-text h2 {
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+.main-text p {
+  color: #333;
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+/* === Sección recursos === */
+.resources {
+  margin-top: 30px;
+}
+
+.resources h3 {
+  color: #003366;
+  margin-bottom: 15px;
+}
+
+.resource-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 250px);
+  gap: 20px;
+}
+
+.resource-buttons button {
+  background-color: #003366;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.resource-buttons button:hover {
+  background-color: #00264d;
+}
+
+/* === Imagen circular derecha === */
+
+.image-section img {
+  position: absolute;
+  top: 40%;
+  right: 120px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%; /* hace que sea redonda */
+  object-fit: cover; /* evita que se deforme */
+}
