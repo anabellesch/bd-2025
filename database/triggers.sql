@@ -66,7 +66,7 @@ BEGIN
 END$$
 
 -- EVENT programado para marcar "sin asistencia" y generar sanciones
--- ?? SET GLOBAL event_scheduler = ON
+SET GLOBAL event_scheduler = ON;
 CREATE EVENT IF NOT EXISTS ev_check_no_shows
 ON SCHEDULE EVERY 1 HOUR
 DO

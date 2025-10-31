@@ -3,7 +3,7 @@ import mysql.connector
 import os
 from datetime import datetime
 
-reservations_bp = Blueprint('reservations', __name__)
+reservas_bp = Blueprint('reservas', __name__)
 
 def get_db_connection():
     return mysql.connector.connect(
@@ -14,7 +14,7 @@ def get_db_connection():
         port=int(os.getenv("DB_PORT"))
     )
 
-@reservations_bp.route('/', methods=['GET'])
+@reservas_bp.route('/', methods=['GET'])
 def get_reservations():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
@@ -24,7 +24,7 @@ def get_reservations():
     conn.close()
     return jsonify(results)
 
-@reservations_bp.route('/', methods=['POST'])
+@reservas_bp.route('/', methods=['POST'])
 def create_reservation():
     data = request.json
     nombre_sala = data.get('nombre_sala')
