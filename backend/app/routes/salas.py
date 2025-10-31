@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 import mysql.connector
 import os
 
-rooms_bp = Blueprint('rooms', __name__)
+salas_bp = Blueprint('salas', __name__)
 
 def get_db_connection():
     return mysql.connector.connect(
@@ -13,7 +13,7 @@ def get_db_connection():
         port=int(os.getenv("DB_PORT"))
     )
 
-@rooms_bp.route('/', methods=['GET'])
+@salas_bp.route('/', methods=['GET'])
 def get_rooms():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
@@ -23,7 +23,7 @@ def get_rooms():
     conn.close()
     return jsonify(results)
 
-@rooms_bp.route('/', methods=['POST'])
+@salas_bp.route('/', methods=['POST'])
 def create_room():
     data = request.json
     nombre_sala = data.get('nombre_sala')

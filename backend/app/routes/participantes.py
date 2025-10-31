@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 import mysql.connector
 import os
 
-participants_bp = Blueprint('participants', __name__)
+participantes_bp = Blueprint('participantes', __name__)
 
 def get_db_connection():
     return mysql.connector.connect(
@@ -14,7 +14,7 @@ def get_db_connection():
     )
 
 # GET todos los participantes
-@participants_bp.route('/', methods=['GET'])
+@participantes_bp.route('/', methods=['GET'])
 def get_participants():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
@@ -25,7 +25,7 @@ def get_participants():
     return jsonify(results)
 
 # POST crear participante
-@participants_bp.route('/', methods=['POST'])
+@participantes_bp.route('/', methods=['POST'])
 def create_participant():
     data = request.json
     ci = data.get('ci')

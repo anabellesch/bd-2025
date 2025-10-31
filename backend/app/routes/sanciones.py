@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 import mysql.connector
 import os
 
-sanctions_bp = Blueprint('sanctions', __name__)
+sanciones_bp = Blueprint('sanciones', __name__)
 
 def get_db_connection():
     return mysql.connector.connect(
@@ -13,7 +13,7 @@ def get_db_connection():
         port=int(os.getenv("DB_PORT"))
     )
 
-@sanctions_bp.route('/', methods=['GET'])
+@sanciones_bp.route('/', methods=['GET'])
 def get_sanctions():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
@@ -23,7 +23,7 @@ def get_sanctions():
     conn.close()
     return jsonify(results)
 
-@sanctions_bp.route('/', methods=['POST'])
+@sanciones_bp.route('/', methods=['POST'])
 def create_sanction():
     data = request.json
     ci_participante = data.get('ci_participante')
