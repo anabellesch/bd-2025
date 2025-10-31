@@ -20,18 +20,26 @@ html, body {
   width: 100vw;
 }
 
+/* Dejar espacio superior para la navbar fija */
+.home-container {
+  padding-top: 64px; /* igual a la altura de .navbar */
+  box-sizing: border-box;
+}
+
 /* === Lateral izquierdo === */
 .sidebar {
-  background-color: #a3b5c7;
-  width: 25%;
+  background-color: #0b3760; /* azul oscuro */
+  width: 28%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* ícono alineado izquierda dentro del panel */
+  padding-left: 36px;
 }
 
 .sidebar img {
-  width: 150px;
-  height: 150px;
+  width: 240px; /* icono grande como en el mockup */
+  height: auto;
+  display: block;
 }
 
 /* === Contenido principal === */
@@ -42,6 +50,7 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  position: relative; /* para que posicion absolute actúe respecto a este contenedor */
 }
 
 /* === Encabezado === */
@@ -49,6 +58,10 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.header {
+  margin-bottom: 18px;
 }
 
 .header img.logo {
@@ -68,59 +81,92 @@ html, body {
 
 /* === Texto principal === */
 .main-text {
-  margin-top: 40px;
+  margin-top: 8px;
 }
 
-.main-text h2 {
+.main-text h2,
+.title {
   color: #003366;
   margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: 700;
 }
 
-.main-text p {
+.main-text p,
+.resources-text p {
   color: #333;
   line-height: 1.5;
   max-width: 600px;
 }
 
+.resources-text {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
 /* === Sección recursos === */
 .resources {
   margin-top: 30px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
 }
 
 .resources h3 {
   color: #003366;
   margin-bottom: 15px;
+  font-size: 36px;
+  font-weight: 800;
 }
 
 .resource-buttons {
   display: grid;
-  grid-template-columns: repeat(2, 250px);
-  gap: 20px;
+  grid-template-columns: repeat(2, 320px);
+  gap: 28px 36px;
 }
 
-.resource-buttons button {
-  background-color: #003366;
-  color: white;
+.resource-button {
+  background-color: #0b3760; /* mismo azul oscuro */
+  color: #ffffff;
   border: none;
-  border-radius: 6px;
-  padding: 15px;
-  font-size: 16px;
+  border-radius: 4px;
+  padding: 0 18px;
+  height: 86px;
+  font-size: 20px;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: background-color 0.15s ease;
 }
 
-.resource-buttons button:hover {
-  background-color: #00264d;
+.resource-button:hover {
+  background-color: #06263f;
 }
 
 /* === Imagen circular derecha === */
 
-.image-section img {
+/* Estilos aplicados a img en Home.jsx (className="resource-image") */
+.resource-image {
   position: absolute;
-  top: 40%;
-  right: 120px;
-  width: 120px;
-  height: 120px;
+  top: 60px; /* debajo de la barra superior */
+  right: 60px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%; /* hace que sea redonda */
   object-fit: cover; /* evita que se deforme */
+  display: block;
+  box-shadow: 0 6px 18px rgba(6, 38, 63, 0.25);
+  border: 6px solid rgba(255,255,255,0.6);
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .resource-buttons { grid-template-columns: 1fr; }
+  .resource-button { width: 100%; }
+  .resource-image { display: none; }
 }
