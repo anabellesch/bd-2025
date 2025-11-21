@@ -2,37 +2,86 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
 import Navbar from "../components/Navbar";
 
-// import clock from "../assets/clock.png";
-// import classroom from "../assets/classroom.jpg";
-
 export default function Home() {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   return (
-  <div className="home-container">
+    <div className="home-container">
+      {/* Sidebar izquierdo con ícono de reloj */}
       <aside className="sidebar">
-        <img src='https://icons.veryicon.com/png/o/miscellaneous/all-blue-icon/clock-294.png' alt="Clock icon" />
+        <div className="clock-container">
+          <img 
+            src='https://icons.veryicon.com/png/o/miscellaneous/all-blue-icon/clock-294.png' 
+            alt="Clock icon" 
+            className="clock-icon"
+          />
+        </div>
       </aside>
 
+      {/* Contenido principal */}
       <main className="content">
-        <header className="header">
-          <Navbar />
-        </header>
+        <Navbar />
 
-        <section>
-          <h2 className="title">Sistema de Gestión de Salas de Estudio UCU</h2>
+        <section className="main-section">
+          <h1 className="title">Sistema de Gestión de Salas de Estudio UCU</h1>
 
-          <div className="resources">
-            <div className="resources-text">
-              <h3>RECURSOS</h3>
-              <div className="resource-buttons">
-                <button className="resource-button" onClick={() => navigate("/ubicacion")}>Ubicación de salas</button>
-                <button className="resource-button" onClick={() => navigate("/salas")}>Salas disponibles</button>
-                <button className="resource-button" onClick={() => navigate("/reglamentacion")}>Reglamentación de reservas</button>
-                <button className="resource-button" onClick={() => navigate("/asistencia")}>Asistencia remota</button>
+          <div className="resources-section">
+            <div className="resources-content">
+              <h2 className="resources-title">RECURSOS</h2>
+              
+              <div className="resource-grid">
+                <button 
+                  className="resource-button" 
+                  onClick={() => navigate("/ubicacion")}
+                >
+                  Ubicación de salas
+                </button>
+                
+                <button 
+                  className="resource-button" 
+                  onClick={() => navigate("/salas")}
+                >
+                  Salas disponibles
+                </button>
+                
+                <button 
+                  className="resource-button" 
+                  onClick={() => navigate("/reservas")}
+                >
+                  Reservas
+                </button>
+                
+                <button 
+                  className="resource-button" 
+                  onClick={() => navigate("/reglamentacion")}
+                >
+                  Reglamentación de reservas
+                </button>
+                
+                <button 
+                  className="resource-button" 
+                  onClick={() => navigate("/dashboard")}
+                >
+                  Dashboard
+                </button>
+                
+                <button 
+                  className="resource-button" 
+                  onClick={() => navigate("/asistencia")}
+                >
+                  Asistencia remota
+                </button>
               </div>
             </div>
-            <img src='https://i.pinimg.com/736x/fa/c4/20/fac420951935b4d3973acd604e43a3c0.jpg' alt="Sala" className="resource-image" />
+
+            {/* Imagen circular decorativa */}
+            <div className="decorative-image-container">
+              <img 
+                src='https://i.pinimg.com/736x/fa/c4/20/fac420951935b4d3973acd604e43a3c0.jpg' 
+                alt="Sala de estudio" 
+                className="decorative-image"
+              />
+            </div>
           </div>
         </section>
       </main>
