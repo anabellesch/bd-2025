@@ -20,15 +20,15 @@ def create_app():
         from backend.app.routes.reservas import reservas_bp
         from backend.app.routes.sanciones import sanciones_bp
         from backend.app.routes.reportes import reportes_bp
-        from backend.app.routes.health import health as health_bp
-        
+        # from backend.app.routes.health import health as health_bp
+
         app.register_blueprint(auth_bp, url_prefix='/api/auth')
         app.register_blueprint(participantes_bp, url_prefix='/api/participantes')
         app.register_blueprint(salas_bp, url_prefix='/api/salas')
         app.register_blueprint(reservas_bp, url_prefix='/api/reservas')
         app.register_blueprint(sanciones_bp, url_prefix='/api/sanciones')
         app.register_blueprint(reportes_bp, url_prefix='/api/reportes')
-        app.register_blueprint(health_bp, url_prefix='/api')
+        # app.register_blueprint(health_bp, url_prefix='/api')
         print("Blueprints registrados correctamente.")
     except Exception as e:
         print("ERROR importando blueprints:", e)

@@ -1,7 +1,7 @@
 # services/reserva_service.py
-from backend.db import get_conn
-from backend.utils import hour_int_from_time_str, validate_hours_between_8_23, week_bounds_for_date, is_docente, is_posgrado
-from backend.services.sanciones import SancionesService
+from db import get_db_connection;
+from utils import hour_int_from_time_str, validate_hours_between_8_23, week_bounds_for_date, is_docente, is_posgrado
+from services.sanciones import SancionesService
 from datetime import datetime, date, timedelta
 
 class ReservaService:
@@ -24,7 +24,7 @@ class ReservaService:
         horas_a_reservar = h_end - h_start  # número de bloques
 
         # conexiones
-        conn = get_conn()
+        conn = get_db_connection()
         cur = conn.cursor(dictionary=True)
         try:
             # obtener sala
@@ -174,7 +174,7 @@ class ReservaService:
         """
         marca asistencia TRUE/FALSE para un participante en reserva_participante
         """
-        conn = get_conn()
+        conn = get_db_connection()
         cur = conn.cursor()
         try:
             cur.execute("""
@@ -195,7 +195,7 @@ class ReservaService:
 
     @staticmethod
     def cancelar_reserva(id_reserva):
-        conn = get_conn()
+        conn = get_db_connection()
         cur = conn.cursor()
         try:
             cur.execute("UPDATE reserva SET estado = 'cancelada' WHERE id_reserva = %s", (id_reserva,))

@@ -1,10 +1,10 @@
-from backend.db import get_conn
+from db import get_db_connection;
 
 class ParticipanteService:
 
     @staticmethod
     def listar():
-        conn = get_conn()
+        conn = get_db_connection()
         cur = conn.cursor(dictionary=True)
         cur.execute("SELECT ci, nombre, apellido, email FROM participante")
         rows = cur.fetchall()
@@ -14,7 +14,7 @@ class ParticipanteService:
 
     @staticmethod
     def obtener(ci):
-        conn = get_conn()
+        conn = get_db_connection()
         cur = conn.cursor(dictionary=True)
         cur.execute("SELECT ci, nombre, apellido, email FROM participante WHERE ci = %s", (ci,))
         row = cur.fetchone()
@@ -26,7 +26,7 @@ class ParticipanteService:
 
     @staticmethod
     def crear(ci, nombre, apellido, email):
-        conn = get_conn()
+        conn = get_db_connection()
         cur = conn.cursor()
         try:
             cur.execute("INSERT INTO participante (ci, nombre, apellido, email) VALUES (%s,%s,%s,%s)",
@@ -42,7 +42,7 @@ class ParticipanteService:
 
     @staticmethod
     def eliminar(ci):
-        conn = get_conn()
+        conn = get_db_connection()
         cur = conn.cursor()
         try:
             cur.execute("DELETE FROM participante WHERE ci = %s", (ci,))

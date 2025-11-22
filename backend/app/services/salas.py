@@ -1,11 +1,11 @@
 # services/sala_service.py
-from backend.db import get_conn
+from db import get_db_connection;
 
 class SalasService:
 
     @staticmethod
     def listar():
-        conn = get_conn()
+        conn = get_db_connection()
         cur = conn.cursor(dictionary=True)
         cur.execute("SELECT id_sala, nombre_sala, id_edificio, capacidad, tipo_sala FROM sala")
         rows = cur.fetchall()
@@ -15,7 +15,7 @@ class SalasService:
 
     @staticmethod
     def obtener(id_sala):
-        conn = get_conn()
+        conn = get_db_connection()
         cur = conn.cursor(dictionary=True)
         cur.execute("SELECT id_sala, nombre_sala, id_edificio, capacidad, tipo_sala FROM sala WHERE id_sala = %s", (id_sala,))
         s = cur.fetchone()
@@ -30,7 +30,7 @@ class SalasService:
         """
         Devuelve True si no existe reserva en la sala para la fecha y turno indicado.
         """
-        conn = get_conn()
+        conn = get_db_connection()
         cur = conn.cursor(dictionary=True)
         cur.execute("""
             SELECT 1 FROM reserva
