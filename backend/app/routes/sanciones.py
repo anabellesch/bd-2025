@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.db import execute_query
+from backend.app.db import execute_query
 from datetime import datetime, timedelta
 
 sanciones_bp = Blueprint('sanciones', __name__)

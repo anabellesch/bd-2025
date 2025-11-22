@@ -1,5 +1,4 @@
-# services/sancion_service.py
-from db import get_conn
+from backend.db import get_conn
 from datetime import datetime, timedelta
 
 class SancionesService:

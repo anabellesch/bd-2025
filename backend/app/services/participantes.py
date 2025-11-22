@@ -1,5 +1,4 @@
-# services/participante_service.py
-from db import get_conn
+from backend.db import get_conn
 
 class ParticipanteService:
 

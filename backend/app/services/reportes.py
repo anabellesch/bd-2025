@@ -1,6 +1,6 @@
 # services/reporte_service.py
-from db import get_conn
-from services.sanciones import SancionesService
+from backend.db import get_conn
+from backend.services.sanciones import SancionesService
 from datetime import datetime
 
 class ReportesService:

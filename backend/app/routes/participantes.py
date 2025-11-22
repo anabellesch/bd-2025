@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.db import execute_query
+from backend.app.db import execute_query
 import mysql.connector
 
 participantes_bp = Blueprint('participantes', __name__)
