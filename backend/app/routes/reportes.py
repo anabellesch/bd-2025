@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from backend.app.db import execute_query
+from app.db import execute_query
 
 reportes_bp = Blueprint('reportes', __name__)
 

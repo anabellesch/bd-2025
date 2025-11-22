@@ -14,12 +14,12 @@ def create_app():
 
     # Import and register blueprints (use absolute backend.app.routes imports)
     try:
-        from backend.app.routes.auth import auth_bp
-        from backend.app.routes.participantes import participantes_bp
-        from backend.app.routes.salas import salas_bp
-        from backend.app.routes.reservas import reservas_bp
-        from backend.app.routes.sanciones import sanciones_bp
-        from backend.app.routes.reportes import reportes_bp
+        from app.routes.auth import auth_bp
+        from app.routes.participantes import participantes_bp
+        from app.routes.salas import salas_bp
+        from app.routes.reservas import reservas_bp
+        from app.routes.sanciones import sanciones_bp
+        from app.routes.reportes import reportes_bp
         # from backend.app.routes.health import health as health_bp
 
         app.register_blueprint(auth_bp, url_prefix='/api/auth')
@@ -35,7 +35,7 @@ def create_app():
 
     # Test DB connection (non-fatal)
     try:
-        from backend.app.db import get_conn
+        from app.db import get_conn
         conn = get_conn()
         conn.close()
         print("Conexión inicial a BD OK")

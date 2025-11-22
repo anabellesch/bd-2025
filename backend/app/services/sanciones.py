@@ -1,4 +1,4 @@
-from db import get_conn
+from db import execute_query as get_conn
 from datetime import datetime, timedelta
 
 class SancionesService:

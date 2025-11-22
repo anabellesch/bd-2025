@@ -78,3 +78,6 @@ def execute_many(query, params_list):
     finally:
         cursor.close()
         conn.close()
+
+def get_conn():
+    return get_db_connection()

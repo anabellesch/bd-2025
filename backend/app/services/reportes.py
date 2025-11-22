@@ -1,5 +1,5 @@
 # services/reporte_service.py
-from db import get_db_connection;
+from db import execute_query;
 from services.sanciones import SancionesService
 from datetime import datetime
 
@@ -7,7 +7,7 @@ class ReportesService:
 
     @staticmethod
     def crear(ci_participante, descripcion, tipo=None):
-        conn = get_db_connection()
+        conn = execute_query()
         cur = conn.cursor()
         try:
             cur.execute("""
