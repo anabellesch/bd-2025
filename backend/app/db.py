@@ -1,53 +1,80 @@
-from flask import Flask
-from flask_cors import CORS
+import mysql.connector
 import os
 from dotenv import load_dotenv
 
-# Cargar variables de entorno desde .env
 load_dotenv()
 
-def create_app():
-    app = Flask(__name__)
+def get_db_connection():
+    """Obtiene una conexión a la base de datos"""
+    return mysql.connector.connect(
+        host=os.getenv("DB_HOST"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASS"),
+        database=os.getenv("DB_NAME"),
+        port=int(os.getenv("DB_PORT"))
+    )
+
+def execute_query(query, params=None):
+    """
+    Ejecuta una consulta SQL y retorna los resultados
     
-    # Configuración de la aplicación
-    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key')
-    app.config['JSON_AS_ASCII'] = False  # Para caracteres especiales en español
+    Args:
+        query: La consulta SQL a ejecutar
+        params: Tupla de parámetros para la consulta (opcional)
     
-    # Habilitar CORS para permitir peticiones desde frontend
-    CORS(app, resources={
-        r"/*": {
-            "origins": ["http://localhost:3000", "http://localhost:5173"],
-            "methods": ["GET", "POST", "PUT", "DELETE"],
-            "allow_headers": ["Content-Type"]
-        }
-    })
+    Returns:
+        Lista de diccionarios con los resultados para SELECT
+        Diccionario con affected_rows y last_id para INSERT/UPDATE/DELETE
+    """
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    
+    try:
+        if params:
+            cursor.execute(query, params)
+        else:
+            cursor.execute(query)
+        
+        # Si es un SELECT, retornar resultados
+        if query.strip().upper().startswith('SELECT'):
+            results = cursor.fetchall()
+            return results
+        else:
+            # Si es INSERT, UPDATE, DELETE, hacer commit
+            conn.commit()
+            return {"affected_rows": cursor.rowcount, "last_id": cursor.lastrowid}
+    
+    except mysql.connector.Error as err:
+        conn.rollback()
+        raise err
+    
+    finally:
+        cursor.close()
+        conn.close()
 
-    # Importar y registrar blueprints
-    from app.routes.participantes import participantes_bp
-    from app.routes.salas import salas_bp
-    from app.routes.reservas import reservas_bp
-    from app.routes.sanciones import sanciones_bp
-    from app.routes.reportes import reportes_bp
-
-    app.register_blueprint(participantes_bp, url_prefix='/api/participantes')
-    app.register_blueprint(salas_bp, url_prefix='/api/salas')
-    app.register_blueprint(reservas_bp, url_prefix='/api/reservas')
-    app.register_blueprint(sanciones_bp, url_prefix='/api/sanciones')
-    app.register_blueprint(reportes_bp, url_prefix='/api/reportes')
-
-    # Ruta de salud (health check)
-    @app.route('/api/health')
-    def health():
-        return {"status": "ok", "message": "API funcionando correctamente"}
-
-    # Manejador de errores 404
-    @app.errorhandler(404)
-    def not_found(error):
-        return {"error": "Endpoint no encontrado"}, 404
-
-    # Manejador de errores 500
-    @app.errorhandler(500)
-    def internal_error(error):
-        return {"error": "Error interno del servidor"}, 500
-
-    return app
+def execute_many(query, params_list):
+    """
+    Ejecuta múltiples inserts/updates en una transacción
+    
+    Args:
+        query: La consulta SQL a ejecutar
+        params_list: Lista de tuplas con parámetros
+    
+    Returns:
+        Número de filas afectadas
+    """
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    try:
+        cursor.executemany(query, params_list)
+        conn.commit()
+        return cursor.rowcount
+    
+    except mysql.connector.Error as err:
+        conn.rollback()
+        raise err
+    
+    finally:
+        cursor.close()
+        conn.close()

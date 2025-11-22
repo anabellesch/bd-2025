@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "../styles/Home.css";
+import "../styles/Admin.css";
 import Navbar from "../components/Navbar";
 
 export default function Home() {
@@ -34,43 +36,77 @@ export default function Home() {
                   className="resource-button" 
                   onClick={() => navigate("/ubicacion")}
                 >
-                  Ubicación de salas
+                  📍 Ubicación de salas
                 </button>
                 
                 <button 
                   className="resource-button" 
                   onClick={() => navigate("/salas")}
                 >
-                  Salas disponibles
+                  🔍 Salas disponibles
                 </button>
                 
                 <button 
                   className="resource-button" 
                   onClick={() => navigate("/reservas")}
                 >
-                  Reservas
+                  📅 Mis Reservas
                 </button>
                 
                 <button 
                   className="resource-button" 
                   onClick={() => navigate("/reglamentacion")}
                 >
-                  Reglamentación de reservas
+                  📋 Reglamentación
                 </button>
                 
                 <button 
                   className="resource-button" 
                   onClick={() => navigate("/dashboard")}
                 >
-                  Dashboard
+                  📊 Dashboard
                 </button>
                 
                 <button 
                   className="resource-button" 
                   onClick={() => navigate("/asistencia")}
                 >
-                  Asistencia remota
+                  💬 Asistencia remota
                 </button>
+              </div>
+
+              {/* Sección de Administración */}
+              <div className="admin-section">
+                <h3>⚙️ ADMINISTRACIÓN</h3>
+                <div className="admin-grid">
+                  <button
+                    className="admin-link"
+                    onClick={() => navigate("/admin/participantes")}
+                  >
+                    👥 Participantes
+                  </button>
+                  
+                  <button
+                    className="admin-link"
+                    onClick={() => navigate("/admin/salas")}
+                  >
+                    🏢 Salas
+                  </button>
+                  
+                  <button
+                    className="admin-link"
+                    onClick={() => navigate("/admin/reservas")}
+                  >
+                    📋 Reservas
+                  </button>
+                  
+                  <button
+                    className="admin-link"
+                    onClick={() => navigate("/admin/sanciones")}
+                  >
+                    ⚠️ Sanciones
+                  </button>
+                </div>
               </div>
             </div>
 

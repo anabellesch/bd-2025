@@ -1,0 +1,49 @@
+from flask import Flask
+from flask_cors import CORS
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+def create_app():
+    app = Flask(__name__)
+    
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key')
+    app.config['JSON_AS_ASCII'] = False
+    
+    CORS(app, resources={
+        r"/*": {
+            "origins": ["http://localhost:3000", "http://localhost:5173"],
+            "methods": ["GET", "POST", "PUT", "DELETE"],
+            "allow_headers": ["Content-Type"]
+        }
+    })
+
+    # Importar y registrar blueprints
+    from app.routes.auth import auth_bp
+    from app.routes.participantes import participantes_bp
+    from app.routes.salas import salas_bp
+    from app.routes.reservas import reservas_bp
+    from app.routes.sanciones import sanciones_bp
+    from app.routes.reportes import reportes_bp
+
+    app.register_blueprint(auth_bp, url_prefix='/api/auth')
+    app.register_blueprint(participantes_bp, url_prefix='/api/participantes')
+    app.register_blueprint(salas_bp, url_prefix='/api/salas')
+    app.register_blueprint(reservas_bp, url_prefix='/api/reservas')
+    app.register_blueprint(sanciones_bp, url_prefix='/api/sanciones')
+    app.register_blueprint(reportes_bp, url_prefix='/api/reportes')
+
+    @app.route('/api/health')
+    def health():
+        return {"status": "ok", "message": "API funcionando correctamente"}
+
+    @app.errorhandler(404)
+    def not_found(error):
+        return {"error": "Endpoint no encontrado"}, 404
+
+    @app.errorhandler(500)
+    def internal_error(error):
+        return {"error": "Error interno del servidor"}, 500
+
+    return app
